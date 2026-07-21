@@ -1,0 +1,35 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ProductApi/Dockerfile
+
+    container_name: crmproductapi
+
+    ports:
+      - "5000:8080"
+
+    depends_on:
+      - sqlserver
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=ProductDb;User Id=sa;Password=ProductApi@123;TrustServerCertificate=True;Encrypt=False;"
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "ProductApi@123"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+volumes:
+  sqlserver-data:
