@@ -1,4 +1,4 @@
-﻿# RESTful Backend API Solution - Technical Assessment
+﻿# RESTful Backend API Solution 
 
 ## Overview
 
